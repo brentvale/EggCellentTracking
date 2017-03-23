@@ -1,20 +1,7 @@
 import * as EggActions from '../actions/egg_actions';
 import merge from 'lodash/merge';
 
-const initialState = {
-  "1": {
-    id: 1,
-    chicken_id: 1,
-    find_date: "date.now"
-  },
-  "2": {
-    id: 2,
-    chicken_id: 1,
-    find_date: "date.now"
-  },
-};
-
-const eggsReducer = (state = initialState, action) => {
+const eggsReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = {};
   switch(action.type) {
@@ -34,4 +21,4 @@ const eggsReducer = (state = initialState, action) => {
   }
 };
 
-export { eggsReducer, initialState };
+export { eggsReducer };

@@ -13,3 +13,39 @@
  *= require_tree .
  *= require_self
  */
+
+.absolute{
+	position:absolute;
+}
+.overlay-unselectable{
+	background-color:rgba(0,0,0,0.4);
+}
+.egg-marker{
+	background-image: url(<%= asset_path 'egg_icon' %>);
+	display:inline-block;
+	height: 16px;
+	width: 16px;
+	z-index: 10;
+}
+.chicken-select-list{
+	max-width:500px;
+}
+.chicken-select-list > div{
+	height: 150px;
+	display: inline-block;
+	width:50%;
+}
+/*@media (max-width: 700px) and (orientation: landscape) {
+
+}*/
+@media (max-width: 800px){
+	.chicken-select-list{
+		margin-top: 400px;
+		max-width:700px;
+		width: 100%;
+	}
+}
+
+
+
+

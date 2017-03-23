@@ -21,17 +21,24 @@ ActiveRecord::Schema.define(version: 20161211155555) do
     t.string   "batch_photo_content_type"
     t.integer  "batch_photo_file_size"
     t.datetime "batch_photo_updated_at"
+    t.text     "egg_coordinates"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
   create_table "chickens", force: :cascade do |t|
-    t.string   "chicken_name",   null: false
+    t.string   "chicken_name",       null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
     t.text     "biography"
     t.string   "arrival_date"
     t.string   "departure_date"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "breed"
+    t.string   "egg_description"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "eggs", force: :cascade do |t|

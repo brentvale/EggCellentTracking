@@ -1,0 +1,15 @@
+<%= link_to "View App", root_url %></br></br>
+<% @chickens.each do |chicken| %>
+	<%= chicken.chicken_name %></br>
+	<%= chicken.biography %></br>
+	<%= chicken.arrival_date %></br>
+	<%= chicken.departure_date %></br>
+	<%= chicken.breed %></br>
+	<% if chicken.photo.url.match("missing") %>
+		(no chicken photo yet)
+	<% else %>
+		<%= image_tag chicken.photo.url, style: "height:100px" %>
+	<% end %>
+	</br>
+	<%= link_to "Edit Chicken (add image)", edit_chicken_path(chicken) %></br></br></br>
+<% end %>

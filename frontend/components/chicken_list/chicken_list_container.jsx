@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  receiveChicken: (chicken) => dispatch(ChickenActions.receiveChicken(chicken))
+  requestChickens: () => dispatch(ChickenActions.requestChickens())
 });
 
 export default connect(
