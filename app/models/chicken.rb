@@ -17,8 +17,6 @@
 #
 
 class Chicken < ActiveRecord::Base
-    has_attached_file :photo
-    
     has_attached_file :photo, 
       styles: { thumb: {geometry: "200x150>", auto_orient: true},
                 small: {geometry: "400x300>", auto_orient: true},
