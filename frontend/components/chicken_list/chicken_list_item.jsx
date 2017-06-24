@@ -27,7 +27,7 @@ class ChickenListItem extends React.Component{
 	      <div className="col-xs-12 col-sm-6 col-lg-4">
 					<div className="center-block border-block box-with-shadow">
 						<Button onClick={this.handleToggleEditing}>X</Button>
-						<ChickenForm 	chicken={chicken} klass="col-xs-12" handleToggleEditing={this.handleToggleEditing}/>
+						<ChickenForm 	chicken={chicken} klass="col-xs-12" handleToggleEditing={this.handleToggleEditing} editing={this.state.editing}/>
 					</div>
 	      </div>
 	    );
