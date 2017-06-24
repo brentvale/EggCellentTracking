@@ -54,7 +54,7 @@ class ChickenForm extends React.Component {
 
 				let url, method;
 				if(that.state.editing){
-					url = `api/chickens/${this.state.chicken.id}`;
+					url = `api/chickens/${that.state.chicken.id}`;
 					method = "PATCH";
 				} else {
 					url = `api/chickens`;
