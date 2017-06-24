@@ -13,12 +13,64 @@
  *= require_tree .
  *= require_self
  */
+:root {
+  --alabaster: #f9f9f9; /*white-ish*/
+	--wild-sand: #f4f4f4; /*white-touch of gray*/
+	--alto: #d3d3d3; /*unclickable gray color*/
+	--boulder: #767676; /*darker gray*/
+	--tundora: #363636; /*darkest gray*/
+}
 
 .absolute{
 	position:absolute;
 }
-.overlay-unselectable{
-	background-color:rgba(0,0,0,0.4);
+.box-with-shadow{
+  background: var(--alabaster);
+  box-shadow: 0 1px 4px rgba(0,0,0,.24);
+  border-radius: 0.3em;
+	margin: 0px 0px 1.4em 0px;
+	max-width:25em;
+  padding:1em 3em 1em 3em;
+}
+.box-with-shadow-selected{
+  background: var(--wild-sand);
+  box-shadow: 0 3px 10px rgba(0,0,0,.23);
+}
+.box-with-shadow-mobile{
+	padding:1em 1em 1em 1em;
+}
+.box-with-shadow:hover{
+  box-shadow: 0 3px 10px rgba(0,0,0,.23);
+}
+/*BLOCK*/
+.border-block{
+	border: 1px solid black;
+	border-radius: 4px;
+}
+.border-block:hover{
+	border: 1px solid #767676;
+}
+.center-block{
+	margin-left: auto;
+	margin-right:auto;
+	left:0;
+	right:0;
+}
+/*IMAGES*/
+#mainBanner{
+	background-image: url(<%= asset_path 'pano_chicken_backyard_for_web_medium.jpg' %>);
+	background-size: contain;
+	background-repeat: no-repeat;
+	height:400px;
+}
+/*GENERAL*/
+.chicken-select-list{
+	max-width:500px;
+}
+.chicken-select-list > div{
+	height: 150px;
+	display: inline-block;
+	width:50%;
 }
 .egg-marker{
 	background-image: url(<%= asset_path 'egg_icon' %>);
@@ -27,13 +79,13 @@
 	width: 16px;
 	z-index: 10;
 }
-.chicken-select-list{
-	max-width:500px;
+.image-upload{
+	content: "Upload Image";
+	background-color:white !important;
+	color:white !important;
 }
-.chicken-select-list > div{
-	height: 150px;
-	display: inline-block;
-	width:50%;
+.overlay-unselectable{
+	background-color:rgba(0,0,0,0.4);
 }
 /*@media (max-width: 700px) and (orientation: landscape) {
 

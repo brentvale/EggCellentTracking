@@ -88,12 +88,11 @@ class BatchEdit extends React.Component {
 		}
 		
     render () {
-			const { chickens, batch, photo_urls } = this.props;
+			const { chickens, batch } = this.props;
 			
 		  const chickensList = chickens.map((chicken, idx) => (
 		      <ChickenThumbnailSelect key={idx} 
 																	chicken={chicken} 
-																	photo_url={photo_urls[chicken.id]}
 																	handleChickenSelect={this.handleChickenSelect}
 																	handleChickenSelectListenerOn={(this.state.step === "egg") ? false : true}
 																	eggsSelectedTotal={this.calculateEggsSelectedTotal(chicken.id)}/>
@@ -108,15 +107,17 @@ class BatchEdit extends React.Component {
 			//select layer is the div layer used to calculate clicks events
 			const selectLayerClass = (this.state.step === "egg") ? "absolute" : "absolute overlay-unselectable";
 			
+			
+			//450 px used to adjust to correct spot...
 		  const eggDivs = this.state.eggsAndCoords.map((obj, idx) => (
 				<div 	key={idx} 
 							className="absolute egg-marker"
 							style={{right: this.state.right + ((1-obj.xPercent)*this.state.width) + "px", 
-										 	top: this.state.top + (obj.yPercent*this.state.height) + "px"}}></div>
+										 	top: this.state.top + (obj.yPercent*this.state.height) - 450 + "px"}}></div>
 		  ));
 			
       return (
-        <div style={{padding: "20px"}}>
+        <div style={{padding: "20px", position: "relative"}}>
 					<img className="absolute"
 							 src={batch.photo_url} 
 							 style={{height: this.state.height + "px", 

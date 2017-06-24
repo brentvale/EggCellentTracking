@@ -18,7 +18,7 @@ class CustomNav extends React.Component {
 	  ));
   
 	  return(
-	    <Navbar inverse collapseOnSelect style={{borderRadius: "0px"}}>
+	    <Navbar inverse collapseOnSelect style={{borderRadius: "0px", marginBottom: "0px"}}>
 	      <Navbar.Header>
 	        <Navbar.Brand>
 	          <a href="/">Egg-cellent Tracker!</a>

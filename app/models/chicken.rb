@@ -18,8 +18,25 @@
 
 class Chicken < ActiveRecord::Base
     has_attached_file :photo
-    # Validate content type
-    validates_attachment_content_type :photo, content_type: /\Aimage/
-    # Validate filename
-    validates_attachment_file_name :photo, matches: [/png\z/, /jpe?g\z/, /JPG/, /PNG/]
+    
+    has_attached_file :photo, 
+      styles: { thumb: {geometry: "200x150>", auto_orient: true},
+                small: {geometry: "400x300>", auto_orient: true},
+                large: {geometry: "800x600>", auto_orient: true}
+              },
+      :convert_options => {:thumb => "-gravity center -extent 200x150",
+                          :small => "-gravity center -extent 400x300",
+                          :large => "-gravity center -extent 800x600"}
+      
+    validates_attachment :photo, 
+      content_type: { content_type: ["image/jpeg", "image/jpg", "image/png"] },
+      attachment_size: {less_than: 5.megabytes}
+      
+    def photo_url_small
+      self.photo.url(:small)
+    end
+
+    def photo_url_thumb
+      self.photo.url(:thumb)
+    end
 end

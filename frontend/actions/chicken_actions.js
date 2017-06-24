@@ -7,23 +7,17 @@ export const RECEIVE_CHICKEN = "RECEIVE_CHICKEN";
 //async actions
 export function requestChickens(){
 	return(dispatch) => {
-		return util.fetchChickens().then(obj => dispatch(receiveChickens(obj)) && dispatch(receivePhotoUrls(obj)));
+		return util.fetchChickens().then(obj => dispatch(receiveChickens(obj)) );
 	};
 }
 
 //sync actions
 export const receiveChickens = (obj) => ({
   type: RECEIVE_CHICKENS,
-  chickens: obj.chickens
+  chickens: obj
 }); 
 
 export const receiveChicken = chicken => ({
   type: RECEIVE_CHICKEN,
   payload: chicken
-}); 
-
-//photo_urls sync actions
-export const receivePhotoUrls = (obj) => ({
-  type: RECEIVE_PHOTO_URLS,
-  photo_urls: obj.photo_urls
 }); 

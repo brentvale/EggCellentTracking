@@ -1,13 +1,16 @@
 import { connect } from 'react-redux';
-import { getAllChickens, getAllPhotoUrls } from '../../reducers/selectors';
+import { getAllChickens } from '../../reducers/selectors';
 import ChickenShow from './chicken_show';
 
 const mapStateToProps = state => ({
-  chickens: getAllChickens(state),
-	photo_urls: getAllPhotoUrls(state)
+  chickens: getAllChickens(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestChickens: () => dispatch(ChickenActions.requestChickens())
 });
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ChickenShow);

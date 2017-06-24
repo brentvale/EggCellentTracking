@@ -1,0 +1,1 @@
+json.partial! '/api/chickens/chicken', chicken: @chicken

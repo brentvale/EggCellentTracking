@@ -11,10 +11,10 @@ class ChickenThumbnailSelect extends React.Component{
 	}
 	
   render() {
-    const {chicken, eggsSelectedTotal, photo_url} = this.props;
+    const {chicken, eggsSelectedTotal} = this.props;
     const { chicken_name, id, egg_description } = chicken;
 		
-		const chickenImage = (id === -1) ? "" : <img src={photo_url} style={{height:"80px", display:"inline"}}/>;
+		const chickenImage = (id === -1) ? "" : <img src={chicken.thumbnail_photo} style={{height:"80px", display:"inline"}}/>;
 		
 		const onClickHandler = (this.props.handleChickenSelectListenerOn) ? this.props.handleChickenSelect : this.alertUserToSelectEggFirst;
 		

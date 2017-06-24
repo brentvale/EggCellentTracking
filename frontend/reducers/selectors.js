@@ -10,14 +10,6 @@ const getAllChickens = ({ chickens }) => {
 	}
 };
 
-const getAllPhotoUrls = ({ photo_urls }) => {
-	if(typeof photo_urls === "undefined"){
-		return [];
-	} else {
-		return photo_urls;
-	}
-};
-
 const getAllBatches = ({ batches }) => (
   Object.keys(batches).map(id => batches[id])
 );
@@ -41,4 +33,4 @@ const parseEggCoordinates = ({ batches }, batchId) => {
 }
 	
 
-export { getAllEggs, getAllChickens, getAllBatches, getBatchById, createEggsHashFromChickens, parseEggCoordinates, getAllPhotoUrls};
+export { getAllEggs, getAllChickens, getAllBatches, getBatchById, createEggsHashFromChickens, parseEggCoordinates};

@@ -6,7 +6,7 @@ const chickensReducer = (state = {}, action) => {
   let newState = merge({}, state);
   switch(action.type) {
     case ChickenActions.RECEIVE_CHICKENS:
-			action.chickens.forEach(chicken => newState[chicken.id] = chicken);
+			newState = action.chickens;
 			return newState;
     case ChickenActions.RECEIVE_CHICKEN:
       const newChicken = {[action.chicken.id]: action.chicken}
