@@ -245,7 +245,7 @@ DEPENDENCIES
   letter_opener_web (~> 1.2.0)
   meta_request
   newrelic_rpm
-  paperclip (~> 5.1.0)
+  paperclip
   pg (~> 0.15)
   pry-rails
   quiet_assets
