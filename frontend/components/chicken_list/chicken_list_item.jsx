@@ -12,7 +12,9 @@ class ChickenListItem extends React.Component{
 	}
 	
 	handleToggleEditing(e){
-		e.preventDefault();
+		if(e){
+			e.preventDefault();
+		}
 		this.setState({editing: !this.state.editing});
 	}
 	
