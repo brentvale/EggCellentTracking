@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   
   namespace :api do 
     resources :batches, only: [:index, :create, :show, :update]
-    resources :chickens, only: [:index, :create]
+    resources :chickens, only: [:index, :create, :update]
   end
 end
