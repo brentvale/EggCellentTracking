@@ -17,7 +17,9 @@ class ChickenList extends React.Component {
 	}
 	
 	toggleChickenForm(e){
-		e.preventDefault();
+		if(e){
+			e.preventDefault();	
+		}
 		this.setState({formShowing: !this.state.formShowing});
 	}
 	
@@ -30,7 +32,7 @@ class ChickenList extends React.Component {
 
 		let chickenForm, buttonToCreateOrClose;
 		if(this.state.formShowing){
-			chickenForm = <ChickenForm klass="col-xs-12 col-sm-6"/>;
+			chickenForm = <ChickenForm klass="col-xs-12 col-sm-6" toggleChickenForm={this.toggleChickenForm}/>;
 			buttonToCreateOrClose = <Button onClick={this.toggleChickenForm}>Close Chicken Form</Button>
 		} else {
 			chickenForm = "";

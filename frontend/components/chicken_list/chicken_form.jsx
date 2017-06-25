@@ -50,8 +50,14 @@ class ChickenForm extends React.Component {
 	      formData.append("chicken[biography]", that.state.biography);
 				formData.append("chicken[chicken_name]", that.state.chicken_name);
 				formData.append("chicken[arrival_date]", that.state.arrival_date);
-				formData.append("chicken[departure_date]", that.state.departure_date);
-
+				
+				//uses "n/a" if departure date has not yet occured.
+				if(that.state.departure_date === ""){
+					formData.append("chicken[departure_date]", "n/a");
+				} else {
+					formData.append("chicken[departure_date]", that.state.departure_date);
+				}
+				
 				let url, method;
 				if(that.state.editing){
 					url = `api/chickens/${that.state.chicken.id}`;
@@ -71,7 +77,11 @@ class ChickenForm extends React.Component {
 		      dataType: 'json',
 					success: (resp) => {
 						console.log("chicken saved");
-						that.props.handleToggleEditing();
+						if(that.props.handleToggleEditing){
+							that.props.handleToggleEditing();
+						} else if(that.props.toggleChickenForm) {
+							that.props.toggleChickenForm();
+						}
 					},
 					error: (resp) => {
 						console.log("errored out creating the photo")
