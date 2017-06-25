@@ -1,4 +1,5 @@
 class Api::ChickensController < ApplicationController
+  before_action :authenticate_user!, only: [:create,:update]
   def index
     @chickens = Chicken.where(departure_date: "n/a")
     render :index

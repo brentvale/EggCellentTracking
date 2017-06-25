@@ -1,11 +1,11 @@
 class Api::BatchesController < ApplicationController
-  
+  before_action :authenticate_user!, only: [:create,:update]
   def create 
     @batch = Batch.new(batch_params)
-    if batch.save
+    if @batch.save
       render :show
     else
-      render json: batch.errors.full_messages, status: 422
+      render json: @batch.errors.full_messages, status: 422
     end
   end
   
@@ -17,10 +17,10 @@ class Api::BatchesController < ApplicationController
   def update
     @batch = Batch.find(params[:id])
     
-    if batch.update_attributes(batch_params)
+    if @batch.update_attributes(batch_params)
       render :show
     else
-      render json: batch.errors.full_messages, status: 422
+      render json: @batch.errors.full_messages, status: 422
     end
   end
   

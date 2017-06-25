@@ -17,9 +17,26 @@
 </head>
 <body id="main">
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<%= yield %>
+<% if notice %>
+	<p class="notice" role="alert"><%= notice %></p>
+<% end %>
+<% if alert %>
+	<p class="alert" role="alert"><%= alert %></p>
+<% end %>
+<div class="container" style="margin:0;padding:0;width:100%">
+	<%= yield %>
+</div>
+
+<script>
+  $(function(){
+    setTimeout(function(){
+      $(".notice").remove();
+    }, 2000);
+    setTimeout(function(){
+      $(".alert").remove();
+    }, 2000);
+  });
+</script>
 
 </body>
 </html>

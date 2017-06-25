@@ -19,6 +19,10 @@ const getBatchById = ({ batches }, batchId) => {
 	return foundBatch || {};
 };
 
+const getCurrentUser = ({ users }) => {
+	return users.currentUser;
+};
+
 const createEggsHashFromChickens = ({ chickens }) => {
 	//create a hash of all chickens to track eggs in batch_edit
 	let eggsCountHash = {};
@@ -33,4 +37,4 @@ const parseEggCoordinates = ({ batches }, batchId) => {
 }
 	
 
-export { getAllEggs, getAllChickens, getAllBatches, getBatchById, createEggsHashFromChickens, parseEggCoordinates};
+export { getAllEggs, getAllChickens, getAllBatches, getBatchById, createEggsHashFromChickens, parseEggCoordinates, getCurrentUser};
