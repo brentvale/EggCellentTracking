@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :chickens, only: [:edit, :update, :index]
 
   root to: "static_pages#home"
   
