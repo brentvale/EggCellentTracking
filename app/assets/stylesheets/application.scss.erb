@@ -20,7 +20,9 @@
 	--boulder: #767676; /*darker gray*/
 	--tundora: #363636; /*darkest gray*/
 }
-
+#main{
+	font-family: 'Raleway', sans-serif;
+}
 .absolute{
 	position:absolute;
 }
@@ -31,6 +33,9 @@
 	margin: 0px 0px 1.4em 0px;
 	max-width:25em;
   padding:1em 3em 1em 3em;
+}
+.box-with-shadow-unpadded{
+	padding:0;
 }
 .box-with-shadow:hover{
   box-shadow: 0 3px 10px rgba(0,0,0,.23);
@@ -52,18 +57,26 @@
 /*IMAGES*/
 #mainBanner{
 	background-image: url(<%= asset_path 'pano_chicken_backyard_for_web_medium.jpg' %>);
-	background-size: contain;
+	background-position: center center;
+	background-size: cover;
 	background-repeat: no-repeat;
-	height:400px;
+	height: 300px;
 }
 /*GENERAL*/
-.chicken-select-list{
-	max-width:500px;
-}
 .chicken-select-list > div{
 	height: 150px;
 	display: inline-block;
 	width:50%;
+}
+.chicken-select-list-item-container{
+	height: 140px; 
+	padding: 30px 0px 15px 0px;
+	position: relative;
+	text-align: center;
+}
+.chicken-select-list-item{
+	width: 150px;
+	text-align:left;
 }
 .egg-marker{
 	background-image: url(<%= asset_path 'egg_icon' %>);
@@ -72,25 +85,62 @@
 	width: 16px;
 	z-index: 10;
 }
+.hand-on-hover:hover{
+	cursor:pointer;
+	cursor:hand;
+}
 .image-upload{
 	content: "Upload Image";
 	background-color:white !important;
 	color:white !important;
 }
+#chickenIndex a.no-decoration, #chickenIndex a.no-decoration:hover, #chickenIndex a.no-decoration:visited{
+	color: var(--tundora);
+	text-decoration: none;
+	p.date-block{
+		color:var(--boulder);
+	}
+}
 .overlay-unselectable{
 	background-color:rgba(0,0,0,0.4);
+}
+.left-heading{
+	padding-left:0px;
+	text-align:center;
+}
+.right-heading{
+	padding-right:0px;
+	text-align:center;
 }
 /*@media (max-width: 700px) and (orientation: landscape) {
 
 }*/
-@media (max-width: 800px){
-	.chicken-select-list{
-		margin-top: 400px;
-		max-width:700px;
-		width: 100%;
+@media (min-width: 500px){
+	.chicken-select-list-item{
+		width: 180px;
+	}
+	.chicken-select-list-item-container{
+		padding: 30px 5px 15px 5px;
 	}
 }
 
-
+@media (min-width: 768px){
+	.chicken-select-list-item{
+		width: 200px;
+	}
+	.chicken-select-list-item-container{
+		padding: 30px 15px 15px 15px;
+	}
+}
+@media (min-width: 992px){
+	.left-heading{
+		padding-left:200px;
+		text-align:left;
+	}
+	.right-heading{
+		padding-right:200px;
+		text-align:right;
+	}
+}
 
 

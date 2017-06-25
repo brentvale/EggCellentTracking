@@ -39,11 +39,14 @@ class BatchEdit extends React.Component {
 		
 		handleEggDrop(event){
 			event.preventDefault();
-			const windowWidth = $(window).width();
-			const pageX = event.pageX;
-			const pageY = event.pageY;
 			
-			const {xPercent, yPercent} = this.calculatePercentageCoords(pageX, pageY, windowWidth);
+			var offset = $(event.currentTarget).offset();
+			//
+			const elementXpos = event.pageX - offset.left;
+			const elementYpos = event.pageY - offset.top;
+			
+			const {xPercent, yPercent} = this.calculatePercentageCoords(elementXpos, elementYpos);
+			
 			const newEggSpot = {chickenId: -1, xPercent: xPercent, yPercent: yPercent};
 			
 			let newEggsAndCoords = this.state.eggsAndCoords;
@@ -67,9 +70,11 @@ class BatchEdit extends React.Component {
 			return count;
 		}
 		
-		calculatePercentageCoords(x, y, windowWidth){
-			const xPercent = (x - (windowWidth - (this.state.right + this.state.width))) / this.state.width;
-			const yPercent = (y - this.state.top) / this.state.height;
+		calculatePercentageCoords(x,y){
+			//this.state.height = 300
+			//this.state.width = 400
+			const xPercent = x/this.state.width;
+			const yPercent = y/this.state.height;
 			
 			return {xPercent: xPercent, yPercent: yPercent}
 		}
@@ -105,38 +110,52 @@ class BatchEdit extends React.Component {
 																	eggsSelectedTotal={this.calculateEggsSelectedTotal(-1)}/>)
 			
 			//select layer is the div layer used to calculate clicks events
-			const selectLayerClass = (this.state.step === "egg") ? "absolute" : "absolute overlay-unselectable";
+			const selectLayerClass = (this.state.step === "egg") ? "absolute overlay-unselectable" : "absolute overlay-unselectable";
 			
 			
-			//450 px used to adjust to correct spot...
+			const mouseOffsetInPixels = 5;
 		  const eggDivs = this.state.eggsAndCoords.map((obj, idx) => (
 				<div 	key={idx} 
 							className="absolute egg-marker"
-							style={{right: this.state.right + ((1-obj.xPercent)*this.state.width) + "px", 
-										 	top: this.state.top + (obj.yPercent*this.state.height) - 450 + "px"}}></div>
+							style={{left: (obj.xPercent*this.state.width) - mouseOffsetInPixels + "px", 
+										 	top: (obj.yPercent*this.state.height) - mouseOffsetInPixels + "px"}}></div>
 		  ));
+			
+			const totalEggsCounted = this.state.eggsAndCoords.length;
+			
+			let imageClickHandler = (this.state.step === "egg") ? this.handleEggDrop : () => {alert(`Select a chicken you think laid this egg or select unknown at the bottom of the list`)};
+			
+			let headingText = (this.state.step === "egg") ? <h2 className="left-heading">Tap/Click an egg</h2> : <h2 className="right-heading">Tap/Click the chicken that laid it</h2>;
 			
       return (
         <div style={{padding: "20px", position: "relative"}}>
-					<img className="absolute"
-							 src={batch.photo_url} 
-							 style={{height: this.state.height + "px", 
-											 width: this.state.width + "px", 
-											 top: this.state.top + "px", 
-											 right: this.state.right  + "px"}}/>
-					<div className={selectLayerClass}
-							 onClick={(this.state.step === "egg") ? this.handleEggDrop : this.handleChickenSelect}
-							 style={{height: this.state.height + "px", 
-											 width: this.state.width + "px", 
-											 top: this.state.top + "px", 
-											 right: this.state.right  + "px"}}></div>
-					<div className="chicken-select-list">
-							 {chickensList} 
+					{headingText}
+					<div className="col-xs-12 col-md-6" style={{textAlign:"center", paddingTop:"40px"}}>
+						<div className="center-block" style={{width: this.state.width, height: this.state.height, position:"relative"}}>
+							
+								<img className=""
+										 onClick={imageClickHandler}
+										 src={batch.photo_url} 
+										 style={{height: this.state.height + "px", 
+														 width: this.state.width + "px"}}/>
+	
+								{eggDivs}
+							
+						</div>
+						<div style={{display: "block", marginTop: "50px"}}>
+								 <button className="btn btn-default" onClick={this.updateBatchWithCoordinates}>DONE</button>
+						</div>
+						
 					</div>
+					<div className="col-xs-12 col-md-6" style={{height:"400px", overflow: "scroll", marginTop:"20px", marginBottom: "100px", textAlign:"center"}}>
+						<h4>Egg Count : {totalEggsCounted}</h4>
+						
+						<div className="col-xs-12" style={{textAlign:"center"}}>
+								 {chickensList} 
+						</div>
 					
-					{eggDivs}
-					
-					<button className="btn btn-default" onClick={this.updateBatchWithCoordinates}>DONE</button>
+						
+					</div>
 				</div>
       );
     }

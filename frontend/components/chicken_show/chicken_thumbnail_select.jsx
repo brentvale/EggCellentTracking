@@ -28,17 +28,20 @@ class ChickenThumbnailSelect extends React.Component{
       <div id={chicken_name} 
 					 data-chicken-id={id} 
 					 onClick={onClickHandler}
-					 style={{position: "relative", height: "140px", padding: "15px"}}> 
-					 
-					<div style={{display:"inline-block", verticalAlign: "top"}}>
-					 {chickenImage}
+					 style={{position: "relative", height: "140px", padding: "30px 15px 15px 15px", textAlign: "center"}}
+					 className="col-xs-6 chicken-select-list-item-container"> 
+					<div className="center-block chicken-select-list-item box-with-shadow box-with-shadow-unpadded hand-on-hover">
+						<div style={{display:"inline-block", verticalAlign: "top"}}>
+						 {chickenImage}
+						</div>
+					
+						<div style={{display:"inline-block", paddingLeft: "10px", paddingTop: "10px", position:"relative", maxWidth:"150px", verticalAlign:"top"}}>
+		          <h6>{chicken_name}</h6>
+							<p style={{display:"block", fontSize: "0.8em"}}>{egg_description}</p>
+							{eggsDisplayList}
+						</div>
 					</div>
 					
-					<div style={{display:"inline-block", padding: "10px", position:"relative", maxWidth:"150px", verticalAlign:"top"}}>
-	          <h6>{chicken_name}</h6>
-						<p style={{display:"block", fontSize: "0.8em"}}>{egg_description}</p>
-						{eggsDisplayList}
-					</div>
       </div>
     )
   }

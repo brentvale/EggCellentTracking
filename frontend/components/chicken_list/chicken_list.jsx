@@ -45,7 +45,7 @@ class ChickenList extends React.Component {
 					{ chickenForm }
 					{ buttonToCreateOrClose }
 				</div>
-	      <div className="col-xs-12">
+	      <div className="col-xs-12" id="chickenIndex">
 					{listItems}
 				</div>
 	    </div>
