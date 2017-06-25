@@ -30,8 +30,7 @@ export function fetchSingleBatch(id){
 //sync actions
 export const receiveBatch = batch => ({
 	type: RECEIVE_BATCH,
-	batch: batch.batch,
-	batch_photo_url: batch.photo_url
+	batch: batch,
 });
 
 export const receiveBatches = batches => ({

@@ -1,26 +1,24 @@
 class Api::BatchesController < ApplicationController
   
   def create 
-    batch = Batch.new(batch_params)
+    @batch = Batch.new(batch_params)
     if batch.save
-      render json: { batch: batch }
+      render :show
     else
       render json: batch.errors.full_messages, status: 422
     end
   end
   
   def show
-    batch = Batch.find(params[:id])
-    render json: { batch: batch,
-                   photo_url: batch.batch_photo.url}
+    @batch = Batch.find(params[:id])
+    render :show
   end
   
   def update
-    batch = Batch.find(params[:id])
+    @batch = Batch.find(params[:id])
     
     if batch.update_attributes(batch_params)
-      render json: { batch: batch,
-                     photo_url: batch.batch_photo.url}
+      render :show
     else
       render json: batch.errors.full_messages, status: 422
     end

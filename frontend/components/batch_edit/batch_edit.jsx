@@ -20,7 +20,17 @@ class BatchEdit extends React.Component {
 			this.handleEggDrop = this.handleEggDrop.bind(this);
 			this.handleChickenSelect = this.handleChickenSelect.bind(this);
 			this.updateBatchWithCoordinates = this.updateBatchWithCoordinates.bind(this);
+			this.adjustImage = this.adjustImage.bind(this);
 	  }
+		
+		adjustImage(){
+			let newHeight, newWidth;
+			if(this.state.height === 300){
+				this.setState({height: 400, width: 300});
+			} else {
+				this.setState({height: 300, width: 400});
+			}
+		}
 		
 		componentDidMount(){
 			this.props.fetchSingleBatch(this.props.params.batch_id);
@@ -130,12 +140,12 @@ class BatchEdit extends React.Component {
       return (
         <div style={{padding: "20px", position: "relative"}}>
 					{headingText}
-					<div className="col-xs-12 col-md-6" style={{textAlign:"center", paddingTop:"40px"}}>
+					<div className="col-xs-12 col-md-6" style={{textAlign:"center", paddingTop:"40px", marginBottom: "50px"}}>
 						<div className="center-block" style={{width: this.state.width, height: this.state.height, position:"relative"}}>
 							
 								<img className=""
 										 onClick={imageClickHandler}
-										 src={batch.photo_url} 
+										 src={batch.thumbnail_photo} 
 										 style={{height: this.state.height + "px", 
 														 width: this.state.width + "px"}}/>
 	
@@ -143,7 +153,8 @@ class BatchEdit extends React.Component {
 							
 						</div>
 						<div style={{display: "block", marginTop: "50px"}}>
-								 <button className="btn btn-default" onClick={this.updateBatchWithCoordinates}>DONE</button>
+								 <button className="btn btn-default" style={{marginRight: "20px"}}onClick={this.updateBatchWithCoordinates}>DONE</button>
+								 <button className="btn btn-default" style={{marginLeft: "20px"}}onClick={this.adjustImage}>Adjust Image</button>
 						</div>
 						
 					</div>
