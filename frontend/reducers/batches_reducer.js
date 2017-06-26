@@ -9,6 +9,10 @@ const batchesReducer = (state = {}, action) => {
       const newBatch = {[action.batch.id]: action.batch}
       newState = merge({}, state, newBatch);
       return newState;
+    case BatchActions.RECEIVE_CHICKEN_SILHOUETTE_IMAGE:
+      const image = {["chickenSilhouette"]: action.image}
+      newState = merge({}, state, image);
+      return newState;
     default:
       return state;
   }

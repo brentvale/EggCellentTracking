@@ -12,7 +12,8 @@ class BatchForm extends React.Component {
       super(props);
       this.state = {
 				uploadedFile: null,
-				imagePreview: ""
+				imagePreview: "",
+				submitted: false
       };
       this.handleSubmit = this.handleSubmit.bind(this);
 			this.handleNoImageUploadedAlert = this.handleNoImageUploadedAlert.bind(this);
@@ -21,14 +22,19 @@ class BatchForm extends React.Component {
     
     handleSubmit(event){
       event.preventDefault();
+			console.log("handling submit");
+			
+			
 			let file = this.state.uploadedFile;
 			let formData = new FormData();
 
 			formData.append("batch[batch_photo]", file);
 			this.props.createBatch(formData)
 				.then((data) => {
-					this.props.router.push(`/batch_edit/${data.batch.id}`)}
+						this.props.router.push(`/batch_edit/${data.batch.id}`)
+					}
 				);
+			this.setState({submitted: true});
     }
 		
 		handleNoImageUploadedAlert(e){
@@ -58,7 +64,7 @@ class BatchForm extends React.Component {
 
     render () {
 			const { chickens } = this.props;
-		  const submitButton = (this.state.uploadedFile) ? <input type="submit" value="Submit" /> : <input type="submit" value="Submit" onClick={this.handleNoImageUploadedAlert}/>;
+		  const submitButton = (this.state.uploadedFile && !this.state.submitted) ? <input type="submit" value="Submit" /> : <input type="submit" value="Submit" onClick={this.handleNoImageUploadedAlert}/>;
 			
 			
 			const imageHeight = 150;
@@ -70,7 +76,13 @@ class BatchForm extends React.Component {
 																								        </ReactKonva.Layer>
 																											</ReactKonva.Stage>
 																										 </div>:
-																										<div style={{height: imageHeight, width: imageWidth, marginBottom: "1em"}} className="center-block"></div>;																				
+																										<div style={{height: imageHeight, width: imageWidth, marginBottom: "1em"}} className="center-block"></div>;	
+			let spinnerUploadDisplay = (this.state.submitted) ? <div style={{padding:"1em"}}>
+																															<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i><br/>
+																															<span>Uploading Image...</span><br/>
+																															<span>This can take a while, check your browser for upload progress (bottom left)</span>
+																															<span className="sr-only">Uploading Image...</span>
+																													</div>: "";																			
 								
       return (
 				<div className="col-xs-12" style={{textAlign:"center"}}>
@@ -84,6 +96,7 @@ class BatchForm extends React.Component {
 				
 		       { submitButton }
 		      </form>
+					{ spinnerUploadDisplay }
 				</div>
         
       );

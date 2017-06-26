@@ -1,20 +1,13 @@
 import React from 'react';
 
-class ChickenThumbnailSelect extends React.Component{
+class ChickenThumbnailShow extends React.Component{
   constructor(){
     super();
-		this.alertUserToSelectEggFirst = this.alertUserToSelectEggFirst.bind(this);
   }
-  
-	alertUserToSelectEggFirst(){
-		alert("Select an Egg First and then assign it to a chicken. \nTag eggs of unknown origin with the Question Mark Chicken. \nWhen you're done entering all eggs, click DONE");
-	}
 	
   render() {
     const {chicken, eggsSelectedTotal} = this.props;
     const { chicken_name, id, egg_description } = chicken;
-		
-		const onClickHandler = (this.props.handleChickenSelectListenerOn) ? this.props.handleChickenSelect : this.alertUserToSelectEggFirst;
 		
 		const eggsDisplayList = [];
 		
@@ -25,7 +18,6 @@ class ChickenThumbnailSelect extends React.Component{
     return (
       <div id={chicken_name} 
 					 data-chicken-id={id} 
-					 onClick={onClickHandler}
 					 style={{position: "relative", height: "140px", padding: "30px 15px 15px 15px", textAlign: "center"}}
 					 className="col-xs-6 chicken-select-list-item-container"> 
 					<div className="center-block chicken-select-list-item box-with-shadow box-with-shadow-unpadded hand-on-hover">
@@ -45,4 +37,4 @@ class ChickenThumbnailSelect extends React.Component{
   }
 };
 
-export default ChickenThumbnailSelect;
+export default ChickenThumbnailShow;

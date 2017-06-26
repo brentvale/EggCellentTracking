@@ -24,6 +24,10 @@ class Api::BatchesController < ApplicationController
     end
   end
   
+  def chicken_silhouette
+    render json: {image: ActionController::Base.helpers.asset_path('chicken_silhouette.png')}
+  end
+  
   private
   
   def batch_params

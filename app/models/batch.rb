@@ -23,14 +23,18 @@ class Batch < ActiveRecord::Base
     
   validates :batch_photo,
     attachment_content_type: {:content_type => ["image/jpg", "image/jpeg", "image/png"]},
-    attachment_size: {less_than: 5.megabytes}
+    attachment_size: {less_than: 10.megabytes}
+    
+    def photo_url_thumb
+      self.batch_photo.url(:thumb)
+    end 
     
     def photo_url_small
       self.batch_photo.url(:small)
     end
   
-    def photo_url_thumb
-      self.batch_photo.url(:thumb)
+    def photo_url_large
+      self.batch_photo.url(:large)
     end 
     
 end

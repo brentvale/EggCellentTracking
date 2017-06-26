@@ -4,7 +4,8 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import ChickenThumbnailSelect from '../chicken_show/chicken_thumbnail_select'
+import ChickenThumbnailSelect from '../chicken_show/chicken_thumbnail_select';
+import EggIcon from '../egg_list/egg_icon';
 
 class BatchEdit extends React.Component {
 	  constructor(){
@@ -21,6 +22,7 @@ class BatchEdit extends React.Component {
 			this.handleChickenSelect = this.handleChickenSelect.bind(this);
 			this.updateBatchWithCoordinates = this.updateBatchWithCoordinates.bind(this);
 			this.adjustImage = this.adjustImage.bind(this);
+			this.calculateEggsSelectedTotal = this.calculateEggsSelectedTotal.bind(this);
 	  }
 		
 		adjustImage(){
@@ -34,6 +36,15 @@ class BatchEdit extends React.Component {
 		
 		componentDidMount(){
 			this.props.fetchSingleBatch(this.props.params.batch_id);
+			this.props.fetchChickenSilhouette();
+		}
+		
+		componentWillReceiveProps(nextProps){
+			if(Object.keys(nextProps.batch).length > 0){
+				if(typeof nextProps.batch.egg_coordinates !== "" && nextProps.batch.egg_coordinates){
+					this.setState({eggsAndCoords: JSON.parse(nextProps.batch.egg_coordinates)});
+				}
+			}
 		}
 		
 		handleChickenSelect(event){
@@ -66,6 +77,7 @@ class BatchEdit extends React.Component {
 		
 		calculateEggsSelectedTotal(chickenId){
 			let count = 0;
+
 			for(let i = 0; i < this.state.eggsAndCoords.length; i++){
 				if(this.state.eggsAndCoords[i].chickenId === chickenId){
 					count += 1;
@@ -96,25 +108,28 @@ class BatchEdit extends React.Component {
     }
 
 		updateBatchWithCoordinates(){
-			this.props.updateBatch({eggsAndCoords: this.state.eggsAndCoords, id: this.props.batch.id})
+			const eggsAndCoords = (this.state.eggsAndCoords.length === 0) ? "" : this.state.eggsAndCoords;
+			this.props.updateBatch({eggsAndCoords: eggsAndCoords, id: this.props.batch.id})
 				.then((data) => {
 					this.props.router.push(`/batch/${data.batch.id}`)}
 				);
 		}
 		
     render () {
-			const { chickens, batch } = this.props;
+			let that = this;
+			
+			const { chickens, batch, chickenSilhouetteImage } = this.props;
 			
 		  const chickensList = chickens.map((chicken, idx) => (
 		      <ChickenThumbnailSelect key={idx} 
 																	chicken={chicken} 
-																	handleChickenSelect={this.handleChickenSelect}
-																	handleChickenSelectListenerOn={(this.state.step === "egg") ? false : true}
-																	eggsSelectedTotal={this.calculateEggsSelectedTotal(chicken.id)}/>
+																	handleChickenSelect={that.handleChickenSelect}
+																	handleChickenSelectListenerOn={(that.state.step === "egg") ? false : true}
+																	eggsSelectedTotal={that.calculateEggsSelectedTotal(chicken.id)}/>
 		  ));
 			
 			chickensList.push(<ChickenThumbnailSelect key={chickens.length + 1} 
-																	chicken={{id: -1, chicken_name: "unknown"}}
+																	chicken={{id: -1, chicken_name: "unknown", thumbnail_photo: chickenSilhouetteImage}}
 																	handleChickenSelect={this.handleChickenSelect}
 																	handleChickenSelectListenerOn={(this.state.step === "egg") ? false : true}
 																	eggsSelectedTotal={this.calculateEggsSelectedTotal(-1)}/>)
@@ -122,13 +137,8 @@ class BatchEdit extends React.Component {
 			//select layer is the div layer used to calculate clicks events
 			const selectLayerClass = (this.state.step === "egg") ? "absolute overlay-unselectable" : "absolute overlay-unselectable";
 			
-			
-			const mouseOffsetInPixels = 5;
 		  const eggDivs = this.state.eggsAndCoords.map((obj, idx) => (
-				<div 	key={idx} 
-							className="absolute egg-marker"
-							style={{left: (obj.xPercent*this.state.width) - mouseOffsetInPixels + "px", 
-										 	top: (obj.yPercent*this.state.height) - mouseOffsetInPixels + "px"}}></div>
+				<EggIcon egg={obj} key={idx} height={that.state.height} width={that.state.width} />
 		  ));
 			
 			const totalEggsCounted = this.state.eggsAndCoords.length;
@@ -145,7 +155,7 @@ class BatchEdit extends React.Component {
 							
 								<img className=""
 										 onClick={imageClickHandler}
-										 src={batch.thumbnail_photo} 
+										 src={batch.small_photo} 
 										 style={{height: this.state.height + "px", 
 														 width: this.state.width + "px"}}/>
 	
@@ -153,8 +163,8 @@ class BatchEdit extends React.Component {
 							
 						</div>
 						<div style={{display: "block", marginTop: "50px"}}>
-								 <button className="btn btn-default" style={{marginRight: "20px"}}onClick={this.updateBatchWithCoordinates}>DONE</button>
-								 <button className="btn btn-default" style={{marginLeft: "20px"}}onClick={this.adjustImage}>Adjust Image</button>
+								 <button className="btn btn-default" style={{marginRight: "20px"}} onClick={this.updateBatchWithCoordinates}>DONE</button>
+								 <button className="btn btn-default" style={{marginLeft: "20px"}} onClick={this.adjustImage}>Adjust Image</button>
 						</div>
 						
 					</div>

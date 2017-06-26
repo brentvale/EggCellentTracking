@@ -23,6 +23,10 @@ const getCurrentUser = ({ users }) => {
 	return users.currentUser;
 };
 
+const getChickenSilhouette = ({ batches }) =>{
+	return batches.chickenSilhouette;
+};
+
 const createEggsHashFromChickens = ({ chickens }) => {
 	//create a hash of all chickens to track eggs in batch_edit
 	let eggsCountHash = {};
@@ -37,4 +41,4 @@ const parseEggCoordinates = ({ batches }, batchId) => {
 }
 	
 
-export { getAllEggs, getAllChickens, getAllBatches, getBatchById, createEggsHashFromChickens, parseEggCoordinates, getCurrentUser};
+export { getAllEggs, getAllChickens, getAllBatches, getBatchById, createEggsHashFromChickens, parseEggCoordinates, getCurrentUser, getChickenSilhouette};

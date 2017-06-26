@@ -1,6 +1,7 @@
 import * as util from '../util/batch_api_util';
 
 export const RECEIVE_BATCH = "RECEIVE_BATCH";
+export const RECEIVE_CHICKEN_SILHOUETTE_IMAGE = "RECEIVE_CHICKEN_SILHOUETTE_IMAGE";
 
 //async actions
 export function requestBatches(){
@@ -27,6 +28,12 @@ export function fetchSingleBatch(id){
 	};
 }
 
+export function fetchChickenSilhouette(){
+	return(dispatch) => {
+		return util.fetchChickenSilhouette().then(obj => dispatch(receiveChickenSilhouetteImage(obj)))
+	}
+}
+
 //sync actions
 export const receiveBatch = batch => ({
 	type: RECEIVE_BATCH,
@@ -35,5 +42,10 @@ export const receiveBatch = batch => ({
 
 export const receiveBatches = batches => ({
 	type: RECEIVE_BATCHES,
-	batch
+	batches: batches
 });
+
+export const receiveChickenSilhouetteImage = obj => ({
+	type: RECEIVE_CHICKEN_SILHOUETTE_IMAGE,
+	image: obj.image
+})

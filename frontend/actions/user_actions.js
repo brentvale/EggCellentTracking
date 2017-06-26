@@ -5,8 +5,8 @@ export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 //async actions
 export function requestCurrentUser(){
 	return(dispatch) => {
-		return util.fetchCurrentUser().then(obj => dispatch(receiveCurrentUser(obj)),
-																	err => alert("You Must Sign In First"));
+		return util.fetchCurrentUser()
+		.then(obj => dispatch(receiveCurrentUser(obj)));
 	};
 }
 

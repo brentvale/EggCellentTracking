@@ -29,6 +29,13 @@ export const updateBatch = batch => {
 	})
 };
 
+export const fetchChickenSilhouette = () => (
+  $.ajax({
+    method: 'GET',
+    url: '/api/batches/chicken_silhouette'
+  })
+);
+
 export const fetchSingleBatch = id => (
 	$.ajax({
 		method: 'GET',
