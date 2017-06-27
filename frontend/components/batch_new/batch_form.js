@@ -1,6 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
+import Exif from 'exif-js';
+window.EXIF_IMAGE = Exif;
+
 import FileInput from 'react-file-input';
 import * as ReactKonva from 'react-konva';
 import ChickenThumbnailSelect from '../chicken_show/chicken_thumbnail_select';
@@ -22,13 +25,22 @@ class BatchForm extends React.Component {
     
     handleSubmit(event){
       event.preventDefault();
-			console.log("handling submit");
-			
-			
-			let file = this.state.uploadedFile;
+		
 			let formData = new FormData();
 
-			formData.append("batch[batch_photo]", file);
+			let canvas = document.createElement("canvas");
+			let height = this.state.imagePreview.height/5;
+			let width = this.state.imagePreview.width/5;
+
+			canvas.width = width;
+			canvas.height = height;
+
+			let ctx = canvas.getContext("2d");
+			ctx.drawImage(this.state.imagePreview, 0, 0, width, height);
+
+			let dataurl = canvas.toDataURL("image/jpeg");
+
+			formData.append("batch[batch_photo]", dataurl);
 			this.props.createBatch(formData)
 				.then((data) => {
 						this.props.router.push(`/batch_edit/${data.batch.id}`)
