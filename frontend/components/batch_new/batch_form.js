@@ -22,6 +22,10 @@ class BatchForm extends React.Component {
 			this.handleNoImageUploadedAlert = this.handleNoImageUploadedAlert.bind(this);
 			this.handleChange = this.handleChange.bind(this);
     }
+		
+		componentDidMount(){
+			this.props.requestCurrentUser();
+		}
     
     handleSubmit(event){
       event.preventDefault();
@@ -57,12 +61,6 @@ class BatchForm extends React.Component {
 			e.preventDefault();
 			alert("upload an image first");
 		}
-
-    linkState(key) {
-      // here we use '[key]' to set the key to be the value of the 'key' variable,
-      // as opposed to a string of 'key'
-      return (event => this.setState({[key]: event.currentTarget.value}));
-    }
 		
 	  handleChange(e){
 			let that = this;
@@ -77,6 +75,12 @@ class BatchForm extends React.Component {
 			}
 			reader.readAsDataURL(e.target.files[0]);
 	  }
+		
+    linkState(key) {
+      // here we use '[key]' to set the key to be the value of the 'key' variable,
+      // as opposed to a string of 'key'
+      return (event => this.setState({[key]: event.currentTarget.value}));
+    }
 
     render () {
 			const { chickens } = this.props;

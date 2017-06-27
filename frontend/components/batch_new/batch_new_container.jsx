@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 import * as BatchActions from '../../actions/batch_actions';
+import * as UserActions from '../../actions/user_actions';
 import BatchForm from './batch_form';
-import { getAllChickens } from '../../reducers/selectors'
+import { getAllChickens, getCurrentUser } from '../../reducers/selectors'
 
 const mapStateToProps = state => ({
-	currentUser: state.currentUser
+	currentUser: getCurrentUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  createBatch: batch => dispatch(BatchActions.createBatch(batch))
+  createBatch: batch => dispatch(BatchActions.createBatch(batch)),
+	requestCurrentUser: () => dispatch(UserActions.requestCurrentUser())
 });
 
 export default connect(
