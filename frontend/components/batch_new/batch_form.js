@@ -25,28 +25,32 @@ class BatchForm extends React.Component {
     
     handleSubmit(event){
       event.preventDefault();
-		
-			let formData = new FormData();
+			if(this.props.currentUser){
+				let formData = new FormData();
 
-			let canvas = document.createElement("canvas");
-			let height = this.state.imagePreview.height/5;
-			let width = this.state.imagePreview.width/5;
+				let canvas = document.createElement("canvas");
+				let height = this.state.imagePreview.height/5;
+				let width = this.state.imagePreview.width/5;
 
-			canvas.width = width;
-			canvas.height = height;
+				canvas.width = width;
+				canvas.height = height;
 
-			let ctx = canvas.getContext("2d");
-			ctx.drawImage(this.state.imagePreview, 0, 0, width, height);
+				let ctx = canvas.getContext("2d");
+				ctx.drawImage(this.state.imagePreview, 0, 0, width, height);
 
-			let dataurl = canvas.toDataURL("image/jpeg");
+				let dataurl = canvas.toDataURL("image/jpeg");
 
-			formData.append("batch[batch_photo]", dataurl);
-			this.props.createBatch(formData)
-				.then((data) => {
-						this.props.router.push(`/batch_edit/${data.batch.id}`)
-					}
-				);
-			this.setState({submitted: true});
+				formData.append("batch[batch_photo]", dataurl);
+				this.props.createBatch(formData)
+					.then((data) => {
+							this.props.router.push(`/batch_edit/${data.batch.id}`)
+						}
+					);
+				this.setState({submitted: true});
+			} else {
+				alert("You must be signed in to create a new batch.  Sign in and then upload your egg picture");
+			}
+			
     }
 		
 		handleNoImageUploadedAlert(e){
