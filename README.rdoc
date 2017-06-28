@@ -1,9 +1,9 @@
 == README
 
-Eggcellent-Tracker : Track your chickens and log your eggs with this ReactJS/Ruby on Rails app.
+=Eggcellent-Tracker : Track your chickens and log your eggs with this ReactJS/Ruby on Rails app.
 
 
-##Setup Instructions
+<b>Setup Instructions</b>
 
 Should you want to play around with the app, start by cloning this reposity and then run `npm install` to download the node packages.
 
