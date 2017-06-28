@@ -1,6 +1,7 @@
 == README
 
-=Eggcellent-Tracker : Track your chickens and log your eggs with this ReactJS/Ruby on Rails app.
+=Eggcellent-Tracker 
+==Track your chickens and log your eggs with this ReactJS/Ruby on Rails app.
 
 
 <b>Setup Instructions</b>
