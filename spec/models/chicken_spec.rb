@@ -12,6 +12,7 @@
 #  arrival_date       :string
 #  departure_date     :string
 #  breed              :string
+#  egg_description    :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
